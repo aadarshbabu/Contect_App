@@ -1,7 +1,7 @@
 
 import { ScrollView, Text, StyleSheet, View } from "react-native";
 
-export default function Contect({ first_name, phone, email, key }) {
+export default function Contect({ first_name, phone, email, id }) {
 
   const style = StyleSheet.create({
     contectContainer: {
@@ -12,7 +12,7 @@ export default function Contect({ first_name, phone, email, key }) {
   })
 
   return (
-    <View key={key} style={style.contectContainer}>
+    <View key={id} style={style.contectContainer}>
       <Text>Name  : {first_name} </Text>
       <Text>Phone : {phone} </Text>
       <Text>Email : {email} </Text>

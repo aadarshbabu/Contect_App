@@ -1,13 +1,13 @@
 {
   "expo": {
     "name": "contect_app",
-    "slug": "snack-0883beed-622b-431e-8577-092874408812",
+    "slug": "ContectApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon/icons-contacts1024.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/icon/icons-contacts-256.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -22,12 +22,14 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "foregroundImage": "./assets/icon/icons-contacts-256.png",
+        "backgroundColor": "#FFFFFF",
+        "icon": "./assets/icon/icons-contacts1024.png"
+      },
+      "package": "com.android.contect_app"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/icon/icons-contacts-48.png"
     },
     "extra": {
       "eas": {
