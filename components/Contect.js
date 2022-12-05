@@ -4,7 +4,6 @@ import ContectList from './ContectLists';
 import { useState, useEffect } from 'react';
 
 
-//Render context
 function rendreContect({ item }) {
   return (
     <ContectList
@@ -15,7 +14,6 @@ function rendreContect({ item }) {
     />
   );
 }
-
 
 function Header() {
   return <Text>Contect List</Text>
@@ -42,10 +40,6 @@ export default function Contect() {
     }
     getContect()
   }, []);
-
-
-
-
   return (
     <View style={{ padding: 3 }}>
 
@@ -53,7 +47,6 @@ export default function Contect() {
         title={!toggle ? 'show contect' : "hide contect"}
         onPress={() => setToggle((prev) => !prev)}
       />
-
 
       {toggle && (
         <FlatList
