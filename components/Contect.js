@@ -3,7 +3,7 @@ import ContectAPI from '../assets/contect';
 import ContectList from './ContectLists';
 import { useState, useEffect } from 'react';
 
-
+// Rendrer Item
 function rendreContect({ item }) {
   return (
     <ContectList
@@ -25,7 +25,7 @@ function Footer() {
 
 
 
-export default function Contect() {
+export default function Contect({ navigation }) {
 
   const [toggle, setToggle] = useState(false);
   const [phoneContect, setPhoneContect] = useState([]);
@@ -47,6 +47,7 @@ export default function Contect() {
         title={!toggle ? 'show contect' : "hide contect"}
         onPress={() => setToggle((prev) => !prev)}
       />
+      <Button title='Add Contect' onPress={() => navigation.navigate("AddContect")} />
 
       {toggle && (
         <FlatList

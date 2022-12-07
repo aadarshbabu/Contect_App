@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "contect_app",
-    "slug": "ContectApp",
-    "version": "1.0.0",
+    "name": "contectApp",
+    "slug": "appContect",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon/icons-contacts1024.png",
     "userInterfaceStyle": "light",
@@ -23,17 +23,16 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon/icons-contacts-256.png",
-        "backgroundColor": "#FFFFFF",
-        "icon": "./assets/icon/icons-contacts1024.png"
+        "backgroundColor": "#FFFFFF"
       },
-      "package": "com.android.contect_app"
+      "package": "com.android.app_contect"
     },
     "web": {
       "favicon": "./assets/icon/icons-contacts-48.png"
     },
     "extra": {
       "eas": {
-        "projectId": "e20b4b10-8643-4d81-a537-5bca5705edd9"
+        "projectId": "f8677250-34e9-4660-8ceb-5df9fffbeb6b"
       }
     }
   }
