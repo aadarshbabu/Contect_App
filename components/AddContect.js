@@ -1,23 +1,24 @@
 import React, { useState } from 'react'
-import { TextInput, View, Text, StyleSheet } from 'react-native'
+import { TextInput, View, Text, StyleSheet, PermissionsAndroid, Alert } from 'react-native'
 import { Button } from 'react-native-paper'
-import { useRef } from 'react'
 import * as Contacts from 'expo-contacts';
 
-function AddContect() {
+function AddContect({ navigation }) {
 
-    const phoneNo = useRef()
     const [contect, setContect] = useState({
         contectName: '',
         contectNumber: ''
     });
     function setContectValue(name) {
         return (value) => {
-            if (+value && value.length <= 10 && name == 'contectNumber')
-                setContect((prev) => { return { ...prev, [name]: value } });
+            console.log(value.length)
+            if (+value && value.length > 10 && name == 'contectNumber')
+                return
             if (name == 'contectName') {
                 setContect((prev) => { return { ...prev, [name]: value } });
             }
+            setContect((prev) => { return { ...prev, [name]: value } });
+            console.log(value)
         }
     }
     function isValidContectInfo() {
@@ -27,25 +28,73 @@ function AddContect() {
         return false;
     }
 
+    async function getWritePermission() {
+        try {
+            console.log("Try to make permisson")
+            const granted = await PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.WRITE_CONTACTS,
+                {
+                    title: "Cool Photo App Camera Permission",
+                    message:
+                        "Cool Photo App needs access to your camera " +
+                        "so you can take awesome pictures.",
+                    buttonNeutral: "Ask Me Later",
+                    buttonNegative: "Cancel",
+                    buttonPositive: "OK"
+                }
+            )
+            if (granted == PermissionsAndroid.RESULTS.GRANTED) {
+                console.log("granted")
+                return true;
+            } else {
+                console.log("Denied")
+                console.log(granted)
+                return false
+            }
+
+        } catch (error) {
+            console.log("Fail");
+            console.log(error)
+            return false
+        }
+
+    }
+
 
     async function SaveContect() {
-        if (!isValidContectInfo())
+        console.log("call")
+        if (!isValidContectInfo()) {
+            Alert.alert("Contect", "Invalid Contect Information")
             return false
-
-        if (!Contacts.isAvailableAsync()) {
-            Contacts.getPermissionsAsync()
-        }
-        const contact = {
-            [Contacts.Fields.Name]: contect.contectName,
-            [Contacts.Fields.PhoneNumbers]: contect.contectNumber
-        }
-        try {
-            const contactId = await Contacts.addContactAsync(contact);
-            console.log(contactId)
-        } catch (error) {
-            console.log(error)
         }
 
+        if (await getWritePermission()) {
+            console.log("Permission Granted")
+            // {"id": "4752", "isPrimary": 0, "label": "mobile", "number": "+91 73005 19548", "type": "2"}
+            const [first_name, last_name] = contect.contectName.split(" ");
+
+            console.log(first_name, last_name)
+            try {
+                const contectDetails = {
+                    [Contacts.Fields.FirstName]: first_name,
+                    [Contacts.Fields.LastName]: last_name,
+                    [Contacts.Fields.ID]: contect.contectNumber,
+                    [Contacts.Fields.Name]: contect.contectName,
+                    [Contacts.Fields.PhoneNumbers]: [{ id: `test ${contect.contectNumber}`, number: contect.contectNumber, lable: "mobile", }]
+                }
+                const contactId = await Contacts.addContactAsync(contectDetails);
+                console.log(contactId)
+                Alert.alert("Contect", "Contect Save SuccessFully")
+                navigation.goBack()
+            } catch (error) {
+                console.log(error)
+                Alert.alert("Contect", "Permission Denied" + error.message)
+                navigation.goBack();
+                return
+            }
+            Alert.alert("Permission Denied.")
+
+        }
     }
 
     return (
@@ -61,9 +110,9 @@ function AddContect() {
 
             ></TextInput>
 
-            <TextInput ref={phoneNo} name="data" style={styles.inputBoxColor}
+            <TextInput name="data" style={styles.inputBoxColor}
                 placeholder='Enter a Phone'
-                keyboardType='number-pad'
+                keyboardType='numeric'
                 value={contect.contectNumber}
                 onChangeText={setContectValue("contectNumber")}
             ></TextInput>
@@ -79,7 +128,7 @@ function AddContect() {
                     backgroundColor: "white",
                     color: "white"
                 }}
-                onPress={SaveContect}
+                onPress={() => SaveContect()}
             > Add Contect </Button>
         </View>
     )

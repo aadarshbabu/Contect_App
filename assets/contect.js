@@ -10,6 +10,6 @@ export default async function ContectAPI() {
     });
 
     return data
-  
+
   }
 }  

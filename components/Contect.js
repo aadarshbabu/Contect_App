@@ -31,11 +31,21 @@ export default function Contect({ navigation }) {
   const [phoneContect, setPhoneContect] = useState([]);
 
 
+
   useEffect(() => {
 
     async function getContect() {
       const c = await ContectAPI()
       // console.log(c[46])
+      // c.forEach(data => {
+      //   if (data.name) {
+
+      //     console.log(data)
+      //     console.log("  ")
+      //   }
+
+      // })
+
       setPhoneContect(c)
     }
     getContect()

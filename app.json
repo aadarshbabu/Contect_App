@@ -25,7 +25,7 @@
         "foregroundImage": "./assets/icon/icons-contacts-256.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.android.app_contect"
+      "package": "com.aadarsh121.appContect"
     },
     "web": {
       "favicon": "./assets/icon/icons-contacts-48.png"
