@@ -44,11 +44,10 @@ function AddContect({ navigation }) {
                 }
             )
             if (granted == PermissionsAndroid.RESULTS.GRANTED) {
-                console.log("granted")
+                Alert.alert("premmison", granted)
                 return true;
             } else {
-                console.log("Denied")
-                console.log(granted)
+                Alert.alert("Denied")
                 return false
             }
 
@@ -59,6 +58,19 @@ function AddContect({ navigation }) {
         }
 
     }
+
+    // function save() {
+    //     const [first_name, last_name] = contect.contectName.split(" ");
+    //     const contectDetails = {
+    //         [Contacts.Fields.ContactType]: 'person',
+    //         [Contacts.Fields.FirstName]: first_name,
+    //         [Contacts.Fields.LastName]: last_name,
+    //         [Contacts.Fields.ID]: contect.contectNumber,
+    //         [Contacts.Fields.Name]: contect.contectName,
+    //         [Contacts.Fields.PhoneNumbers]: [{ id: `test ${contect.contectNumber}`, number: contect.contectNumber, lable: "mobile", }]
+    //     }
+    //     console.log(contectDetails);
+    // }
 
 
     async function SaveContect() {
@@ -76,23 +88,26 @@ function AddContect({ navigation }) {
             console.log(first_name, last_name)
             try {
                 const contectDetails = {
+                    [Contacts.Fields.ContactType]: 'person',
                     [Contacts.Fields.FirstName]: first_name,
                     [Contacts.Fields.LastName]: last_name,
                     [Contacts.Fields.ID]: contect.contectNumber,
                     [Contacts.Fields.Name]: contect.contectName,
                     [Contacts.Fields.PhoneNumbers]: [{ id: `test ${contect.contectNumber}`, number: contect.contectNumber, lable: "mobile", }]
                 }
+                console.log(contectDetails);
+
                 const contactId = await Contacts.addContactAsync(contectDetails);
                 console.log(contactId)
-                Alert.alert("Contect", "Contect Save SuccessFully")
+                Alert.alert("Contect", "Contect Save SuccessFully" + contactId)
                 navigation.goBack()
+                return
             } catch (error) {
                 console.log(error)
                 Alert.alert("Contect", "Permission Denied" + error.message)
                 navigation.goBack();
                 return
             }
-            Alert.alert("Permission Denied.")
 
         }
     }
